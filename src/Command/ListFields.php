@@ -92,7 +92,8 @@ class ListFields extends Command
             $table = $table_data['TABLE_SCHEMA'] . "." . $table_name . " (" . strtolower($table_data['TABLE_TYPE']) . ")";
             $out->writeln($table);
             foreach ($table_data['columns'] as $column_name => $column_data) {
-                $column = $column_name . " (" . $column_data['DATA_TYPE'] . ")";
+                $max_len = $column_data['CHARACTER_MAXIMUM_LENGTH'] ? "(" . $column_data['CHARACTER_MAXIMUM_LENGTH'] . "}" : "";
+                $column = $column_name . " (" . $column_data['DATA_TYPE'] . $max_len . ")";
                 $column .= " " . ($column_data['IS_NULLABLE'] != 'NO' ? 'NULL' : 'NOT NULL');
                 $column .= " " . $column_data['COLUMN_DEFAULT'];
                 $out->writeln($column);
